@@ -117,15 +117,23 @@ variable "service_account" {
   type        = string
   default     = ""
 }
+
 variable "additional_metadata" {
   type        = map(any)
   description = "Additional metadata to attach to the instance"
   default     = {}
 }
+
 variable "machine_type" {
   type        = string
   description = "The GCP machine type to deploy"
   default     = "n1-standard-1"
+}
+
+variable "min_cpu_platform" {
+  description = "Specifies a minimum CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell or Intel Skylake. See the complete list: https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform"
+  type        = string
+  default     = null
 }
 
 variable "source_image_family" {

@@ -38,6 +38,7 @@ This example shows how to deploy a MIG Self Hosted Runner with an image pre-bake
 | instance\_name | The gce instance name | `string` | `"gh-runner"` | no |
 | machine\_type | The GCP machine type to deploy | `string` | `"n1-standard-1"` | no |
 | max\_replicas | Maximum number of runner instances | `number` | `10` | no |
+| min\_cpu\_platform | Specifies a minimum CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell or Intel Skylake. See the complete list: https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform | `string` | `null` | no |
 | min\_replicas | Minimum number of runner instances | `number` | `2` | no |
 | network\_name | Name for the VPC network | `string` | `"gh-runner-network"` | no |
 | project\_id | The project id to deploy Github Runner | `string` | n/a | yes |

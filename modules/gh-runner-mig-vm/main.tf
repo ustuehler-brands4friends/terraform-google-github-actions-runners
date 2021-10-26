@@ -122,6 +122,7 @@ module "mig_template" {
   version            = "~> 7.0"
   project_id         = var.project_id
   machine_type       = var.machine_type
+  min_cpu_platform   = var.min_cpu_platform
   network            = local.network_name
   subnetwork         = local.subnet_name
   region             = var.region
