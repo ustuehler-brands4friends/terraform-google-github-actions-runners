@@ -108,8 +108,8 @@ variable "gh_token" {
 
 variable "instance_name" {
   type        = string
-  description = "The gce instance name"
-  default     = "gh-runner"
+  description = "The base instance name to use for instances in the managed instance group, and the name of a managed secret which will be read by each instance on startup. The value must be a valid RFC1035 name. Supported characters are lowercase letters, numbers, and hyphens (-). Instances are named by appending a hyphen and a random four-character string to the base instance name."
+  default     = "gh-runner-vm"
 }
 
 variable "service_account" {

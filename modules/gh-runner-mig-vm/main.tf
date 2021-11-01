@@ -20,6 +20,7 @@ locals {
   service_account = var.service_account == "" ? google_service_account.runner_service_account[0].email : var.service_account
   startup_script  = var.startup_script == "" ? file("${path.module}/scripts/startup.sh") : var.startup_script
   shutdown_script = var.shutdown_script == "" ? file("${path.module}/scripts/shutdown.sh") : var.shutdown_script
+  instance_name   = var.instance_name
 }
 
 /*****************************************
@@ -65,7 +66,7 @@ resource "google_compute_router_nat" "nat" {
 resource "google_service_account" "runner_service_account" {
   count        = var.service_account == "" ? 1 : 0
   project      = var.project_id
-  account_id   = "runner-service-account"
+  account_id   = var.instance_name
   display_name = "Github Runner GCE Service Account"
 }
 
@@ -75,10 +76,10 @@ resource "google_service_account" "runner_service_account" {
 resource "google_secret_manager_secret" "gh-secret" {
   provider  = google-beta
   project   = var.project_id
-  secret_id = "gh-token"
+  secret_id = local.instance_name
 
   labels = {
-    label = "gh-token"
+    label = local.instance_name
   }
 
   replication {
@@ -112,10 +113,6 @@ resource "google_secret_manager_secret_iam_member" "gh-secret-member" {
 /*****************************************
   Runner GCE Instance Template
  *****************************************/
-locals {
-  instance_name = "gh-runner-vm"
-}
-
 
 module "mig_template" {
   source             = "terraform-google-modules/vm/google//modules/instance_template"
